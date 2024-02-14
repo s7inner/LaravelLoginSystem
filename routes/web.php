@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,13 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//For LoginController and welcome.blade.php, login.blade.php
 Route::view('/login', 'login')->name('login');
 Route::post('/login', [LoginController::class, 'login']);
-//Route::view('/dashboard', 'dashboard')->name('dashboard');
-
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
-});
 
 Route::view('/logout', 'welcome')->name('logout');
 Route::post('/logout', [LoginController::class, 'logout']);
+
+//For AdminController and dashboard.blade.php
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'getAllUsers'])->name('dashboard');
+});
+Route::delete('/dashboard/user/{id}', [AdminController::class, 'deleteUser'])->name('user.delete');
