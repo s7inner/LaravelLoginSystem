@@ -23,3 +23,7 @@ To start you need:
 - mysql
 - xampp (php + mysql) - included in it
 - composer
+
+Useful commands:
+- composer create-project laravel/laravel <my-cool-project> (basic project template)
+- php artisan breeze:install (package with basic view and controllers for authorization and profile)
