@@ -809,7 +809,7 @@
 
         <p class="mt-3 text-xl font-semibold text-gray-600 dark:text-gray-400">
             @auth
-                Welcome to the Dashboard {{ auth()->user()->username }}!
+                Welcome to the Dashboard {{ auth()->user()->email }}!
             @else
                 Welcome to the Dashboard!
             @endauth
@@ -821,7 +821,8 @@
                 <thead>
                 <tr>
                     <th scope="col">id</th>
-                    <th scope="col">username</th>
+                    <th scope="col">email</th>
+                    <th scope="col">is_admin</th>
                     <th scope="col">created_at</th>
                     <th scope="col">updated_at</th>
                     <th scope="col">Action</th>
@@ -831,7 +832,8 @@
                 @foreach ($users as $user)
                     <tr>
                         <th scope="row">{{ $user->id }}</th>
-                        <td>{{ $user->username }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->is_admin }}</td>
                         <td>{{ $user->created_at }}</td>
                         <td>{{ $user->updated_at }}</td>
                         <td>

@@ -8,23 +8,31 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 class UsersTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         // Insert the admin user
         DB::table('users')->insert([
-            'username' => 'admin',
+            'email' => 'admin@gmail.com',
             'password' => Hash::make('admin'),
+            'is_admin' => true,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         // Insert the user user
         DB::table('users')->insert([
-            'username' => 'user',
+            'email' => 'user@gmail.com',
             'password' => Hash::make('user'),
+            'is_admin' => false,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Insert the user user1
+        DB::table('users')->insert([
+            'email' => 'user1@gmail.com',
+            'password' => Hash::make('user1'),
+            'is_admin' => false,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Policies\UserPolicy;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -17,20 +18,23 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('username', 'password');
+        $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials))
         {
-            return $this->handleSuccessfulUsername();
+            return $this->handleSuccessfulEmail();
         }
 
-        return $this->handleFailedUsername($credentials['username']);
+        return $this->handleFailedEmail($credentials['email']);
     }
 
-    protected function handleSuccessfulUsername()
+    protected function handleSuccessfulEmail()
     {
-        // Check if the user is an admin
-        if (auth()->user()->username === 'admin')
+        // Get the authenticated user
+        $user = auth()->user();
+
+        // Check if the user is an admin using the UserPolicy
+        if (UserPolicy::viewIsAdmin($user))
         {
             return redirect()->route('dashboard');
         }
@@ -39,10 +43,10 @@ class LoginController extends Controller
         return redirect('/');
     }
 
-    protected function handleFailedUsername($username)
+    protected function handleFailedEmail($email)
     {
         // Check if a user with the specified login exists
-        $user = User::where('username', $username)->first();
+        $user = User::where('email', $email)->first();
 
         if ($user)
         {

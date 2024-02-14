@@ -26,7 +26,7 @@
                             @csrf
 
                             <div class="form-group mb-4">
-                                <input type="text" id="username" name="username" class="form-control form-control-lg"
+                                <input type="text" id="email" name="email" class="form-control form-control-lg"
                                        placeholder="Login"/>
                             </div>
 

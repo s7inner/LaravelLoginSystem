@@ -28,6 +28,7 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 //For AdminController and dashboard.blade.php
 Route::middleware(['auth', 'admin'])->group(function () {
+
     Route::get('/dashboard', [AdminController::class, 'getAllUsers'])->name('dashboard');
+    Route::delete('/dashboard/user/{id}', [AdminController::class, 'deleteUser'])->name('user.delete');
 });
-Route::delete('/dashboard/user/{id}', [AdminController::class, 'deleteUser'])->name('user.delete');
